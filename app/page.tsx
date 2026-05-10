@@ -37,10 +37,17 @@ export default async function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {daireler.map((daire) => (
               <div key={daire.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
-                {/* Fotoğraf placeholder */}
-                <div className="bg-gray-200 h-52 flex items-center justify-center text-gray-400 text-sm">
-                  📷 Fotoğraf yakında eklenecek
-                </div>
+                {daire.photos.length > 0 ? (
+                  <img
+                    src={[...daire.photos].sort((a, b) => a.order - b.order)[0].url}
+                    alt={daire.name}
+                    className="w-full h-52 object-cover"
+                  />
+                ) : (
+                  <div className="bg-gray-200 h-52 flex items-center justify-center text-gray-400 text-sm">
+                    Fotoğraf henüz eklenmemiş
+                  </div>
+                )}
 
                 <div className="p-5">
                   <div className="flex items-start justify-between mb-2">

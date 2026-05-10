@@ -7,6 +7,7 @@ const links = [
   { href: "/admin/takvim", label: "📅 Takvim" },
   { href: "/admin/fiyatlar", label: "💰 Fiyatlar" },
   { href: "/admin/ozellikler", label: "✏️ Özellikler" },
+  { href: "/admin/fotograflar", label: "🖼️ Fotoğraflar" },
 ]
 
 export default function AdminNav() {
