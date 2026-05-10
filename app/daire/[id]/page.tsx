@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma"
 import Navbar from "@/app/_components/Navbar"
 import Footer from "@/app/_components/Footer"
 import AvailabilityCalendar from "@/app/_components/AvailabilityCalendar"
+import PhotoGallery from "@/app/_components/PhotoGallery"
 
 export default async function DaireDetayPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -29,29 +30,9 @@ export default async function DaireDetayPage({ params }: { params: Promise<{ id:
         </Link>
 
         {/* Fotoğraf Galerisi */}
-        {daire.photos.length > 0 ? (() => {
-          const sorted = [...daire.photos].sort((a, b) => a.order - b.order)
-          return (
-            <div className="space-y-2 mb-4">
-              <div className="rounded-2xl overflow-hidden h-72 md:h-96 bg-gray-100">
-                <img
-                  src={sorted[0].url}
-                  alt={daire.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              {sorted.length > 1 && (
-                <div className="grid grid-cols-4 gap-2">
-                  {sorted.slice(1).map((photo) => (
-                    <div key={photo.id} className="rounded-xl overflow-hidden aspect-video bg-gray-100">
-                      <img src={photo.url} alt="" className="w-full h-full object-cover" />
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          )
-        })() : (
+        {daire.photos.length > 0 ? (
+          <PhotoGallery photos={daire.photos} name={daire.name} />
+        ) : (
           <div className="bg-gray-200 rounded-2xl h-72 md:h-96 flex items-center justify-center text-gray-400 mb-4">
             Fotoğraf henüz eklenmemiş
           </div>
