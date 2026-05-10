@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Apartment {
+  id          Int           @id @default(autoincrement())
+  name        String
+  description String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  features    Feature[]
+  prices      Price?
+  occupancies Occupancy[]
+  photos      Photo[]
+}
+
+model Feature {
+  id          Int       @id @default(autoincrement())
+  name        String
+  apartment   Apartment @relation(fields: [apartmentId], references: [id], onDelete: Cascade)
+  apartmentId Int
+}
+
+model Price {
+  id          Int       @id @default(autoincrement())
+  perDay      Float
+  perWeek     Float
+  perMonth    Float
+  apartment   Apartment @relation(fields: [apartmentId], references: [id], onDelete: Cascade)
+  apartmentId Int       @unique
+}
+
+model Occupancy {
+  id          Int       @id @default(autoincrement())
+  startDate   DateTime
+  endDate     DateTime
+  note        String?
+  apartment   Apartment @relation(fields: [apartmentId], references: [id], onDelete: Cascade)
+  apartmentId Int
+}
+
+model Photo {
+  id          Int       @id @default(autoincrement())
+  url         String
+  order       Int       @default(0)
+  apartment   Apartment @relation(fields: [apartmentId], references: [id], onDelete: Cascade)
+  apartmentId Int
+}

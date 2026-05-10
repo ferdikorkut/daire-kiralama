@@ -1,65 +1,90 @@
-import Image from "next/image";
+import Link from "next/link"
+import { prisma } from "@/lib/prisma"
+import Navbar from "./_components/Navbar"
+import Footer from "./_components/Footer"
 
-export default function Home() {
+export const dynamic = "force-dynamic"
+
+export default async function HomePage() {
+  const daireler = await prisma.apartment.findMany({
+    include: { prices: true, photos: true },
+    orderBy: { id: "asc" },
+  })
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <>
+      <Navbar />
+      <main className="flex-1">
+        {/* Hero */}
+        <section className="bg-blue-700 text-white py-20 px-4 text-center">
+          <h1 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
+            Turistik Konumda<br />Kiralık Daireler
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-blue-100 text-lg mb-8 max-w-xl mx-auto">
+            Günlük, haftalık ve aylık kiralama seçenekleriyle konforlu konaklama deneyimi.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
           <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#daireler"
+            className="inline-block bg-white text-blue-700 font-semibold px-8 py-3 rounded-full hover:bg-blue-50 transition-colors"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
+            Daireleri İncele ↓
           </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+        </section>
+
+        {/* Daire Listesi */}
+        <section id="daireler" className="max-w-6xl mx-auto px-4 py-16">
+          <h2 className="text-2xl font-bold text-gray-800 mb-8 text-center">Dairelerimiz</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {daireler.map((daire) => (
+              <div key={daire.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
+                {/* Fotoğraf placeholder */}
+                <div className="bg-gray-200 h-52 flex items-center justify-center text-gray-400 text-sm">
+                  📷 Fotoğraf yakında eklenecek
+                </div>
+
+                <div className="p-5">
+                  <div className="flex items-start justify-between mb-2">
+                    <h3 className="text-lg font-bold text-gray-800">{daire.name}</h3>
+                    <span className="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded-full font-medium">
+                      2 Oda · 4 Kişi
+                    </span>
+                  </div>
+
+                  <p className="text-gray-500 text-sm mb-4 line-clamp-2">{daire.description}</p>
+
+                  {daire.prices && (
+                    <p className="text-blue-700 font-semibold text-sm mb-4">
+                      Gecelik {daire.prices.perDay.toLocaleString("tr-TR")}₺&apos;den başlayan fiyatlar
+                    </p>
+                  )}
+
+                  <Link
+                    href={`/daire/${daire.id}`}
+                    className="block w-full text-center bg-blue-700 hover:bg-blue-600 text-white font-medium py-2.5 rounded-xl transition-colors text-sm"
+                  >
+                    İncele →
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* İletişim Çağrı */}
+        <section className="bg-blue-50 py-12 px-4 text-center">
+          <h2 className="text-xl font-bold text-gray-800 mb-2">Rezervasyon yapmak ister misiniz?</h2>
+          <p className="text-gray-500 text-sm mb-6">Bizi arayın, uygun tarihleri birlikte belirleyelim.</p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <a href="tel:+905320000000" className="flex items-center gap-2 bg-white border border-gray-200 px-6 py-3 rounded-full text-gray-700 hover:bg-gray-50 transition-colors font-medium text-sm">
+              📞 0532 000 00 00
+            </a>
+            <a href="tel:+905420000000" className="flex items-center gap-2 bg-white border border-gray-200 px-6 py-3 rounded-full text-gray-700 hover:bg-gray-50 transition-colors font-medium text-sm">
+              📞 0542 000 00 00
+            </a>
+          </div>
+        </section>
       </main>
-    </div>
-  );
+      <Footer />
+    </>
+  )
 }
