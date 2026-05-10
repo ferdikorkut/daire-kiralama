@@ -3,7 +3,10 @@ import { PrismaClient } from "../app/generated/prisma/client"
 import { PrismaLibSql } from "@prisma/adapter-libsql"
 
 async function main() {
-  const adapter = new PrismaLibSql({ url: process.env.DATABASE_URL! })
+  const adapter = new PrismaLibSql({
+    url: process.env.DATABASE_URL!,
+    authToken: process.env.TURSO_AUTH_TOKEN,
+  })
   const prisma = new PrismaClient({ adapter })
 
   const daireler = [
