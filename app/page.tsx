@@ -16,36 +16,44 @@ export default async function HomePage() {
       <Navbar />
       <main className="flex-1">
         {/* Hero */}
-        <section className="bg-blue-700 text-white py-20 px-4 text-center">
-          <h1 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
-            Turistik Konumda<br />Kiralık Daireler
-          </h1>
-          <p className="text-blue-100 text-lg mb-8 max-w-xl mx-auto">
-            Günlük, haftalık ve aylık kiralama seçenekleriyle konforlu konaklama deneyimi.
-          </p>
-          <a
-            href="#daireler"
-            className="inline-block bg-white text-blue-700 font-semibold px-8 py-3 rounded-full hover:bg-blue-50 transition-colors"
-          >
-            Daireleri İncele ↓
-          </a>
+        <section className="relative bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 py-28 px-4 text-center overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-amber-400/5 via-transparent to-transparent" />
+          <div className="relative">
+            <p className="text-amber-400 text-sm font-semibold tracking-[0.3em] uppercase mb-4">Seçkin Konaklama</p>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight text-white">
+              Turistik Konumda<br />
+              <span className="text-amber-400">Kiralık Daireler</span>
+            </h1>
+            <p className="text-slate-400 text-lg mb-10 max-w-xl mx-auto">
+              Günlük, haftalık ve aylık kiralama seçenekleriyle konforlu konaklama deneyimi.
+            </p>
+            <a
+              href="#daireler"
+              className="inline-block bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-10 py-3.5 rounded-full transition-colors tracking-wide"
+            >
+              Daireleri Keşfet ↓
+            </a>
+          </div>
         </section>
 
         {/* Daire Listesi */}
         <section id="daireler" className="max-w-6xl mx-auto px-4 py-16">
-          <h2 className="text-2xl font-bold text-gray-800 mb-8 text-center">Dairelerimiz</h2>
+          <div className="text-center mb-12">
+            <p className="text-amber-400 text-xs font-semibold tracking-[0.3em] uppercase mb-2">Koleksiyonumuz</p>
+            <h2 className="text-3xl font-bold text-white">Dairelerimiz</h2>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {daireler.map((daire) => (
-              <div key={daire.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
+              <div key={daire.id} className="bg-slate-900 rounded-2xl border border-amber-400/10 overflow-hidden hover:border-amber-400/40 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-amber-400/5 group">
                 <Link href={`/daire/${daire.id}`}>
                   {daire.photos.length > 0 ? (
                     <img
                       src={[...daire.photos].sort((a, b) => a.order - b.order)[0].url}
                       alt={daire.name}
-                      className="w-full h-52 object-cover cursor-pointer hover:opacity-90 transition-opacity"
+                      className="w-full h-52 object-cover cursor-pointer group-hover:brightness-110 transition-all"
                     />
                   ) : (
-                    <div className="bg-gray-200 h-52 flex items-center justify-center text-gray-400 text-sm cursor-pointer">
+                    <div className="bg-slate-800 h-52 flex items-center justify-center text-slate-500 text-sm cursor-pointer">
                       Fotoğraf henüz eklenmemiş
                     </div>
                   )}
@@ -53,23 +61,23 @@ export default async function HomePage() {
 
                 <div className="p-5">
                   <div className="flex items-start justify-between mb-2">
-                    <h3 className="text-lg font-bold text-gray-800">{daire.name}</h3>
-                    <span className="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded-full font-medium">
+                    <h3 className="text-lg font-bold text-white">{daire.name}</h3>
+                    <span className="text-xs bg-amber-400/10 text-amber-400 px-2 py-1 rounded-full font-medium border border-amber-400/20">
                       2 Oda · 4 Kişi
                     </span>
                   </div>
 
-                  <p className="text-gray-500 text-sm mb-4 line-clamp-2">{daire.description}</p>
+                  <p className="text-slate-400 text-sm mb-4 line-clamp-2">{daire.description}</p>
 
                   {daire.prices && (
-                    <p className="text-blue-700 font-semibold text-sm mb-4">
+                    <p className="text-amber-400 font-semibold text-sm mb-4">
                       Gecelik {daire.prices.perDay.toLocaleString("tr-TR")}₺&apos;den başlayan fiyatlar
                     </p>
                   )}
 
                   <Link
                     href={`/daire/${daire.id}`}
-                    className="block w-full text-center bg-blue-700 hover:bg-blue-600 text-white font-medium py-2.5 rounded-xl transition-colors text-sm"
+                    className="block w-full text-center bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold py-2.5 rounded-xl transition-colors text-sm tracking-wide"
                   >
                     İncele →
                   </Link>
@@ -80,14 +88,15 @@ export default async function HomePage() {
         </section>
 
         {/* İletişim Çağrı */}
-        <section className="bg-blue-50 py-12 px-4 text-center">
-          <h2 className="text-xl font-bold text-gray-800 mb-2">Rezervasyon yapmak ister misiniz?</h2>
-          <p className="text-gray-500 text-sm mb-6">Bizi arayın, uygun tarihleri birlikte belirleyelim.</p>
+        <section className="bg-slate-900 border-y border-amber-400/10 py-14 px-4 text-center">
+          <p className="text-amber-400 text-xs font-semibold tracking-[0.3em] uppercase mb-3">Rezervasyon</p>
+          <h2 className="text-2xl font-bold text-white mb-2">Rezervasyon yapmak ister misiniz?</h2>
+          <p className="text-slate-400 text-sm mb-8">Bizi arayın, uygun tarihleri birlikte belirleyelim.</p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <a href="tel:+905320000000" className="flex items-center gap-2 bg-white border border-gray-200 px-6 py-3 rounded-full text-gray-700 hover:bg-gray-50 transition-colors font-medium text-sm">
+            <a href="tel:+905320000000" className="flex items-center gap-2 bg-slate-800 border border-amber-400/20 hover:border-amber-400/50 px-6 py-3 rounded-full text-slate-200 hover:text-amber-400 transition-colors font-medium text-sm">
               📞 0532 000 00 00
             </a>
-            <a href="tel:+905420000000" className="flex items-center gap-2 bg-white border border-gray-200 px-6 py-3 rounded-full text-gray-700 hover:bg-gray-50 transition-colors font-medium text-sm">
+            <a href="tel:+905420000000" className="flex items-center gap-2 bg-slate-800 border border-amber-400/20 hover:border-amber-400/50 px-6 py-3 rounded-full text-slate-200 hover:text-amber-400 transition-colors font-medium text-sm">
               📞 0542 000 00 00
             </a>
           </div>

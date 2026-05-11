@@ -15,6 +15,15 @@ export default async function DaireDetayPage({ params }: { params: Promise<{ id:
 
   if (!daire) notFound()
 
+  const sonrakiDaire = await prisma.apartment.findFirst({
+    where: { id: { gt: daire.id } },
+    orderBy: { id: "asc" },
+    select: { id: true, name: true },
+  }) ?? await prisma.apartment.findFirst({
+    orderBy: { id: "asc" },
+    select: { id: true, name: true },
+  })
+
   const occupancies = daire.occupancies.map((o) => ({
     startDate: o.startDate.toISOString(),
     endDate: o.endDate.toISOString(),
@@ -24,16 +33,23 @@ export default async function DaireDetayPage({ params }: { params: Promise<{ id:
     <>
       <Navbar />
       <main className="flex-1 max-w-5xl mx-auto px-4 py-10 w-full">
-        {/* Geri */}
-        <Link href="/" className="text-blue-700 text-sm hover:underline mb-6 inline-block">
-          ← Tüm Daireler
-        </Link>
+        {/* Navigasyon */}
+        <div className="flex items-center justify-between mb-6">
+          <Link href="/" className="text-amber-400 text-2xl hover:text-amber-300 transition-colors">
+            ← Tüm Daireler
+          </Link>
+          {sonrakiDaire && sonrakiDaire.id !== daire.id && (
+            <Link href={`/daire/${sonrakiDaire.id}`} className="text-amber-400 text-2xl hover:text-amber-300 transition-colors">
+              {sonrakiDaire.name} →
+            </Link>
+          )}
+        </div>
 
         {/* Fotoğraf Galerisi */}
         {daire.photos.length > 0 ? (
           <PhotoGallery photos={daire.photos} name={daire.name} />
         ) : (
-          <div className="bg-gray-200 rounded-2xl h-72 md:h-96 flex items-center justify-center text-gray-400 mb-4">
+          <div className="bg-slate-800 rounded-2xl h-72 md:h-96 flex items-center justify-center text-slate-500 mb-4">
             Fotoğraf henüz eklenmemiş
           </div>
         )}
@@ -42,20 +58,20 @@ export default async function DaireDetayPage({ params }: { params: Promise<{ id:
           {/* Sol: Bilgiler */}
           <div className="lg:col-span-2 space-y-6">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">{daire.name}</h1>
-              <span className="text-sm text-gray-500">2 Oda · 4 Kişi</span>
+              <h1 className="text-2xl font-bold text-white">{daire.name}</h1>
+              <span className="text-sm text-slate-400">2 Oda · 4 Kişi</span>
             </div>
 
-            <p className="text-gray-600 leading-relaxed">{daire.description}</p>
+            <p className="text-slate-300 leading-relaxed">{daire.description}</p>
 
             {/* Özellikler */}
             {daire.features.length > 0 && (
               <div>
-                <h2 className="text-base font-bold text-gray-800 mb-3">Özellikler</h2>
+                <h2 className="text-base font-bold text-white mb-3">Özellikler</h2>
                 <div className="grid grid-cols-2 gap-2">
                   {daire.features.map((f) => (
-                    <div key={f.id} className="flex items-center gap-2 text-sm text-gray-700">
-                      <span className="text-green-500">✓</span> {f.name}
+                    <div key={f.id} className="flex items-center gap-2 text-sm text-slate-300">
+                      <span className="text-amber-400">✓</span> {f.name}
                     </div>
                   ))}
                 </div>
@@ -69,44 +85,44 @@ export default async function DaireDetayPage({ params }: { params: Promise<{ id:
           {/* Sağ: Fiyat ve İletişim */}
           <div className="space-y-5">
             {daire.prices && (
-              <div className="bg-white rounded-2xl border border-gray-100 p-5">
-                <h2 className="text-base font-bold text-gray-800 mb-4">💰 Fiyatlar</h2>
+              <div className="bg-slate-900 rounded-2xl border border-amber-400/20 p-5">
+                <h2 className="text-base font-bold text-amber-400 mb-4">💰 Fiyatlar</h2>
                 <div className="space-y-3 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-gray-500">Günlük</span>
-                    <span className="font-semibold text-gray-800">{daire.prices.perDay.toLocaleString("tr-TR")}₺</span>
+                    <span className="text-slate-400">Günlük</span>
+                    <span className="font-semibold text-white">{daire.prices.perDay.toLocaleString("tr-TR")}₺</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Haftalık</span>
-                    <span className="font-semibold text-gray-800">{daire.prices.perWeek.toLocaleString("tr-TR")}₺</span>
+                  <div className="flex justify-between border-t border-slate-800 pt-3">
+                    <span className="text-slate-400">Haftalık</span>
+                    <span className="font-semibold text-white">{daire.prices.perWeek.toLocaleString("tr-TR")}₺</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Aylık</span>
-                    <span className="font-semibold text-gray-800">{daire.prices.perMonth.toLocaleString("tr-TR")}₺</span>
+                  <div className="flex justify-between border-t border-slate-800 pt-3">
+                    <span className="text-slate-400">Aylık</span>
+                    <span className="font-semibold text-white">{daire.prices.perMonth.toLocaleString("tr-TR")}₺</span>
                   </div>
                 </div>
-                <p className="text-xs text-gray-400 mt-3 border-t pt-3">
+                <p className="text-xs text-slate-500 mt-3 border-t border-slate-800 pt-3">
                   * Fiyatlar aylara göre değişiklik gösterebilir. Güncel fiyat için bizi arayın.
                 </p>
               </div>
             )}
 
-            <div className="bg-blue-700 rounded-2xl p-5 text-white">
-              <h2 className="text-base font-bold mb-3">📞 Rezervasyon</h2>
-              <p className="text-blue-100 text-sm mb-4">
+            <div className="bg-slate-900 rounded-2xl border border-amber-400/20 p-5">
+              <h2 className="text-base font-bold text-amber-400 mb-3">📞 Rezervasyon</h2>
+              <p className="text-slate-400 text-sm mb-4">
                 Beğendiğiniz tarihleri not edin ve bizi arayın.
               </p>
-              <a href="tel:+905320000000" className="block text-center bg-white text-blue-700 font-semibold py-2.5 rounded-xl text-sm mb-2 hover:bg-blue-50 transition-colors">
+              <a href="tel:+905320000000" className="block text-center bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold py-2.5 rounded-xl text-sm mb-2 transition-colors">
                 0532 000 00 00
               </a>
-              <a href="tel:+905420000000" className="block text-center bg-white text-blue-700 font-semibold py-2.5 rounded-xl text-sm mb-3 hover:bg-blue-50 transition-colors">
+              <a href="tel:+905420000000" className="block text-center bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold py-2.5 rounded-xl text-sm mb-3 transition-colors">
                 0542 000 00 00
               </a>
               <a
                 href="https://wa.me/905320000000"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block text-center bg-green-500 hover:bg-green-400 text-white font-semibold py-2.5 rounded-xl text-sm transition-colors"
+                className="block text-center bg-green-700 hover:bg-green-600 text-white font-semibold py-2.5 rounded-xl text-sm transition-colors"
               >
                 💬 WhatsApp ile Yaz
               </a>

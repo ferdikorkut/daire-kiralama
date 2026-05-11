@@ -7,24 +7,24 @@ export default function Navbar() {
   const [open, setOpen] = useState(false)
 
   return (
-    <nav className="bg-white shadow-sm sticky top-0 z-50">
+    <nav className="bg-slate-950 border-b border-amber-400/20 sticky top-0 z-50">
       <div className="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
-        <Link href="/" className="text-xl font-bold text-blue-700 tracking-tight">
+        <Link href="/" className="text-xl font-bold text-amber-400 tracking-widest uppercase">
           KiralikDaire
         </Link>
 
         {/* Desktop */}
-        <div className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
-          <Link href="/" className="hover:text-blue-700 transition-colors">Ana Sayfa</Link>
-          <Link href="/#daireler" className="hover:text-blue-700 transition-colors">Daireler</Link>
-          <Link href="/#iletisim" className="hover:text-blue-700 transition-colors border border-blue-700 text-blue-700 px-4 py-1.5 rounded-full hover:bg-blue-50 transition-colors">
+        <div className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+          <Link href="/" className="hover:text-amber-400 transition-colors">Ana Sayfa</Link>
+          <Link href="/#daireler" className="hover:text-amber-400 transition-colors">Daireler</Link>
+          <Link href="/#iletisim" className="hover:text-amber-400 transition-colors border border-amber-400/50 text-amber-400 px-4 py-1.5 rounded-full hover:border-amber-400 transition-colors">
             İletişim
           </Link>
         </div>
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden p-2 text-gray-600"
+          className="md:hidden p-2 text-slate-300"
           onClick={() => setOpen(!open)}
           aria-label="Menü"
         >
@@ -36,10 +36,10 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden bg-white border-t px-4 py-3 flex flex-col gap-3 text-sm font-medium text-gray-700">
-          <Link href="/" onClick={() => setOpen(false)}>Ana Sayfa</Link>
-          <Link href="/#daireler" onClick={() => setOpen(false)}>Daireler</Link>
-          <Link href="/#iletisim" onClick={() => setOpen(false)} className="text-blue-700">İletişim</Link>
+        <div className="md:hidden bg-slate-900 border-t border-amber-400/20 px-4 py-3 flex flex-col gap-3 text-sm font-medium text-slate-300">
+          <Link href="/" onClick={() => setOpen(false)} className="hover:text-amber-400 transition-colors">Ana Sayfa</Link>
+          <Link href="/#daireler" onClick={() => setOpen(false)} className="hover:text-amber-400 transition-colors">Daireler</Link>
+          <Link href="/#iletisim" onClick={() => setOpen(false)} className="text-amber-400">İletişim</Link>
         </div>
       )}
     </nav>

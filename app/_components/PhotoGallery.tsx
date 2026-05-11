@@ -10,7 +10,7 @@ export default function PhotoGallery({ photos, name }: { photos: Photo[]; name: 
 
   return (
     <div className="space-y-2 mb-4">
-      <div className="rounded-2xl overflow-hidden h-72 md:h-96 bg-gray-100">
+      <div className="rounded-2xl overflow-hidden h-72 md:h-96 bg-slate-800">
         <img src={main.url} alt={name} className="w-full h-full object-cover" />
       </div>
       {sorted.length > 1 && (
@@ -19,8 +19,8 @@ export default function PhotoGallery({ photos, name }: { photos: Photo[]; name: 
             <button
               key={photo.id}
               onClick={() => setMain(photo)}
-              className={`rounded-xl overflow-hidden aspect-video bg-gray-100 ring-2 transition-all cursor-pointer ${
-                photo.id === main.id ? "ring-blue-600" : "ring-transparent hover:ring-gray-300"
+              className={`rounded-xl overflow-hidden aspect-video bg-slate-800 ring-2 transition-all cursor-pointer ${
+                photo.id === main.id ? "ring-amber-400" : "ring-transparent hover:ring-slate-600"
               }`}
             >
               <img src={photo.url} alt="" className="w-full h-full object-cover" />
