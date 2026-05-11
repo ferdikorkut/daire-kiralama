@@ -35,11 +35,11 @@ export default async function DaireDetayPage({ params }: { params: Promise<{ id:
       <main className="flex-1 max-w-5xl mx-auto px-4 py-10 w-full">
         {/* Navigasyon */}
         <div className="flex items-center justify-between mb-6">
-          <Link href="/" className="text-amber-400 text-2xl hover:text-amber-300 transition-colors">
+          <Link href="/" className="text-amber-400 text-xl hover:text-amber-300 transition-colors">
             ← Tüm Daireler
           </Link>
           {sonrakiDaire && sonrakiDaire.id !== daire.id && (
-            <Link href={`/daire/${sonrakiDaire.id}`} className="text-amber-400 text-2xl hover:text-amber-300 transition-colors">
+            <Link href={`/daire/${sonrakiDaire.id}`} className="text-amber-400 text-xl hover:text-amber-300 transition-colors">
               {sonrakiDaire.name} →
             </Link>
           )}

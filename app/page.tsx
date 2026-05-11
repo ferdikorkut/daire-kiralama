@@ -37,7 +37,7 @@ export default async function HomePage() {
         </section>
 
         {/* Daire Listesi */}
-        <section id="daireler" className="max-w-6xl mx-auto px-4 py-16">
+        <section id="daireler" className="max-w-6xl mx-auto px-4 py-6 scroll-mt-24">
           <div className="text-center mb-12">
             <p className="text-amber-400 text-xs font-semibold tracking-[0.3em] uppercase mb-2">Koleksiyonumuz</p>
             <h2 className="text-3xl font-bold text-white">Dairelerimiz</h2>

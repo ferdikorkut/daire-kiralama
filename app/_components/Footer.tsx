@@ -1,13 +1,13 @@
 export default function Footer() {
   return (
-    <footer id="iletisim" className="bg-slate-950 border-t border-amber-400/20 mt-auto">
+    <footer id="iletisim" className="bg-slate-950 border-t border-amber-400/20 mt-auto scroll-mt-20">
       <div className="max-w-6xl mx-auto px-4 py-10">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <div className="flex flex-col items-center text-center md:flex-row md:items-center md:justify-between md:text-left gap-6">
           <div>
             <h3 className="text-lg font-bold text-amber-400 tracking-widest uppercase mb-1">KiralikDaire</h3>
             <p className="text-slate-400 text-sm">Turistik konumda konforlu kiralık daireler</p>
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col items-center md:items-start gap-2">
             <p className="text-sm text-slate-300 font-medium">Rezervasyon için bizi arayın:</p>
             <a href="tel:+905320000000" className="flex items-center gap-2 text-slate-300 hover:text-amber-400 transition-colors">
               <span>📞</span> 0532 000 00 00

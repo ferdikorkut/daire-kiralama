@@ -34,9 +34,9 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile menu - absolute, içeriği itmez */}
       {open && (
-        <div className="md:hidden bg-slate-900 border-t border-amber-400/20 px-4 py-3 flex flex-col gap-3 text-sm font-medium text-slate-300">
+        <div className="md:hidden absolute left-0 right-0 bg-slate-900 border-t border-amber-400/20 py-4 flex flex-col items-center gap-4 text-sm font-medium text-slate-300 shadow-xl">
           <Link href="/" onClick={() => setOpen(false)} className="hover:text-amber-400 transition-colors">Ana Sayfa</Link>
           <Link href="/#daireler" onClick={() => setOpen(false)} className="hover:text-amber-400 transition-colors">Daireler</Link>
           <Link href="/#iletisim" onClick={() => setOpen(false)} className="text-amber-400">İletişim</Link>
