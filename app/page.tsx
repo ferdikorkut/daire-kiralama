@@ -70,18 +70,18 @@ export default async function HomePage() {
                   <p className="text-slate-400 text-sm mb-4 line-clamp-2">{daire.description}</p>
 
                   {daire.prices && (
-                    <p className="text-amber-400 font-semibold text-sm mb-4">
+                    <p className="text-amber-400 font-semibold text-sm">
                       Gecelik {daire.prices.perDay.toLocaleString("tr-TR")}₺&apos;den başlayan fiyatlar
                     </p>
                   )}
-
-                  <Link
-                    href={`/daire/${daire.id}`}
-                    className="block w-full text-center bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold py-2.5 rounded-xl transition-colors text-sm tracking-wide"
-                  >
-                    İncele →
-                  </Link>
                 </div>
+
+                <Link
+                  href={`/daire/${daire.id}`}
+                  className="block w-full text-center bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold py-3 transition-colors text-sm tracking-wide"
+                >
+                  Detayları Gör →
+                </Link>
               </div>
             ))}
           </div>
