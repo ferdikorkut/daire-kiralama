@@ -52,7 +52,7 @@ export default function AvailabilityCalendar({ occupancies }: { occupancies: Occ
   return (
     <div className="bg-white rounded-2xl border border-gray-100 p-5">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-base font-bold text-gray-800">Rezervasyon Takvimi</h3>
+        <h3 className="text-base font-bold text-gray-800">📅&nbsp; Rezervasyon Takvimi</h3>
         <div className="flex items-center gap-4 text-xs text-gray-500">
           <span className="flex items-center gap-1.5">
             <span className="w-3 h-3 rounded bg-red-100 inline-block" /> Dolu

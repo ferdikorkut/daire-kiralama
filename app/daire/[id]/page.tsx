@@ -55,16 +55,14 @@ export default async function DaireDetayPage({ params }: { params: Promise<{ id:
         )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-6">
-          {/* Sol: Bilgiler */}
+
+          {/* Üst sol: Bilgiler */}
           <div className="lg:col-span-2 space-y-6">
             <div>
               <h1 className="text-2xl font-bold text-white">{daire.name}</h1>
               <span className="text-sm text-slate-400">2 Oda · 4 Kişi</span>
             </div>
-
             <p className="text-slate-300 leading-relaxed">{daire.description}</p>
-
-            {/* Özellikler */}
             {daire.features.length > 0 && (
               <div>
                 <h2 className="text-base font-bold text-white mb-3">Özellikler</h2>
@@ -77,57 +75,59 @@ export default async function DaireDetayPage({ params }: { params: Promise<{ id:
                 </div>
               </div>
             )}
+          </div>
 
-            {/* Takvim */}
+          {/* Üst sağ: Fiyatlar */}
+          {daire.prices && (
+            <div className="bg-slate-900 rounded-2xl border border-amber-400/20 p-5 h-fit">
+              <h2 className="text-base font-bold text-amber-400 mb-4">💰 Fiyatlar</h2>
+              <div className="space-y-3 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-slate-400">Günlük</span>
+                  <span className="font-semibold text-white">{daire.prices.perDay.toLocaleString("tr-TR")}₺</span>
+                </div>
+                <div className="flex justify-between border-t border-slate-800 pt-3">
+                  <span className="text-slate-400">Haftalık</span>
+                  <span className="font-semibold text-white">{daire.prices.perWeek.toLocaleString("tr-TR")}₺</span>
+                </div>
+                <div className="flex justify-between border-t border-slate-800 pt-3">
+                  <span className="text-slate-400">Aylık</span>
+                  <span className="font-semibold text-white">{daire.prices.perMonth.toLocaleString("tr-TR")}₺</span>
+                </div>
+              </div>
+              <p className="text-xs text-slate-500 mt-3 border-t border-slate-800 pt-3">
+                * Fiyatlar aylara göre değişiklik gösterebilir. Güncel fiyat için bizi arayın.
+              </p>
+            </div>
+          )}
+
+          {/* Alt sol: Takvim */}
+          <div className="lg:col-span-2">
             <AvailabilityCalendar occupancies={occupancies} />
           </div>
 
-          {/* Sağ: Fiyat ve İletişim */}
-          <div className="space-y-5">
-            {daire.prices && (
-              <div className="bg-slate-900 rounded-2xl border border-amber-400/20 p-5">
-                <h2 className="text-base font-bold text-amber-400 mb-4">💰 Fiyatlar</h2>
-                <div className="space-y-3 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-slate-400">Günlük</span>
-                    <span className="font-semibold text-white">{daire.prices.perDay.toLocaleString("tr-TR")}₺</span>
-                  </div>
-                  <div className="flex justify-between border-t border-slate-800 pt-3">
-                    <span className="text-slate-400">Haftalık</span>
-                    <span className="font-semibold text-white">{daire.prices.perWeek.toLocaleString("tr-TR")}₺</span>
-                  </div>
-                  <div className="flex justify-between border-t border-slate-800 pt-3">
-                    <span className="text-slate-400">Aylık</span>
-                    <span className="font-semibold text-white">{daire.prices.perMonth.toLocaleString("tr-TR")}₺</span>
-                  </div>
-                </div>
-                <p className="text-xs text-slate-500 mt-3 border-t border-slate-800 pt-3">
-                  * Fiyatlar aylara göre değişiklik gösterebilir. Güncel fiyat için bizi arayın.
-                </p>
-              </div>
-            )}
-
-            <div className="bg-slate-900 rounded-2xl border border-amber-400/20 p-5">
-              <h2 className="text-base font-bold text-amber-400 mb-3">📞 Rezervasyon</h2>
-              <p className="text-slate-400 text-sm mb-4">
-                Beğendiğiniz tarihleri not edin ve bizi arayın.
-              </p>
-              <a href="tel:+905320000000" className="block text-center bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold py-2.5 rounded-xl text-sm mb-2 transition-colors">
-                0532 000 00 00
-              </a>
-              <a href="tel:+905420000000" className="block text-center bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold py-2.5 rounded-xl text-sm mb-3 transition-colors">
-                0542 000 00 00
-              </a>
-              <a
-                href="https://wa.me/905320000000"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block text-center bg-green-700 hover:bg-green-600 text-white font-semibold py-2.5 rounded-xl text-sm transition-colors"
-              >
-                💬 WhatsApp ile Yaz
-              </a>
-            </div>
+          {/* Alt sağ: Rezervasyon */}
+          <div className="bg-slate-900 rounded-2xl border border-amber-400/20 p-5 h-fit">
+            <h2 className="text-base font-bold text-amber-400 mb-3">📞 Rezervasyon</h2>
+            <p className="text-slate-400 text-sm mb-4">
+              Beğendiğiniz tarihleri not edin ve bizi arayın.
+            </p>
+            <a href="tel:+905320000000" className="block text-center bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold py-2.5 rounded-xl text-sm mb-2 transition-colors">
+              0532 000 00 00
+            </a>
+            <a href="tel:+905420000000" className="block text-center bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold py-2.5 rounded-xl text-sm mb-3 transition-colors">
+              0542 000 00 00
+            </a>
+            <a
+              href="https://wa.me/905320000000"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-center bg-green-700 hover:bg-green-600 text-white font-semibold py-2.5 rounded-xl text-sm transition-colors"
+            >
+              💬 WhatsApp ile Yaz
+            </a>
           </div>
+
         </div>
       </main>
       <Footer />
