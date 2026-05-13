@@ -43,23 +43,23 @@ export default function PhotoGallery({ photos, name }: { photos: Photo[]; name: 
         className="w-full h-full object-cover transition-opacity duration-300"
       />
 
-      {/* Sol ok */}
+      {/* Sol tıklama alanı + ok */}
       {sorted.length > 1 && (
         <button
           onClick={prev}
-          className="absolute left-3 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors text-5xl font-thin leading-none"
+          className="absolute left-0 top-0 w-1/5 h-full flex items-center justify-start pl-3 cursor-pointer"
         >
-          ‹
+          <span className="text-white/70 hover:text-white transition-colors text-5xl font-thin leading-none">‹</span>
         </button>
       )}
 
-      {/* Sağ ok */}
+      {/* Sağ tıklama alanı + ok */}
       {sorted.length > 1 && (
         <button
           onClick={next}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors text-5xl font-thin leading-none"
+          className="absolute right-0 top-0 w-1/5 h-full flex items-center justify-end pr-3 cursor-pointer"
         >
-          ›
+          <span className="text-white/70 hover:text-white transition-colors text-5xl font-thin leading-none">›</span>
         </button>
       )}
 
