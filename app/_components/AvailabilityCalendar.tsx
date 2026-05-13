@@ -51,7 +51,17 @@ export default function AvailabilityCalendar({ occupancies }: { occupancies: Occ
 
   return (
     <div className="bg-white rounded-2xl border border-gray-100 p-5">
-      <h3 className="text-base font-bold text-gray-800 mb-4">📅 Müsaitlik Takvimi</h3>
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-base font-bold text-gray-800">Rezervasyon Takvimi</h3>
+        <div className="flex items-center gap-4 text-xs text-gray-500">
+          <span className="flex items-center gap-1.5">
+            <span className="w-3 h-3 rounded bg-red-100 inline-block" /> Dolu
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="w-3 h-3 rounded bg-gray-50 border border-gray-200 inline-block" /> Boş
+          </span>
+        </div>
+      </div>
 
       <div className="flex items-center justify-between mb-4">
         <button onClick={prev} className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors text-gray-600">◀</button>
@@ -83,14 +93,6 @@ export default function AvailabilityCalendar({ occupancies }: { occupancies: Occ
         })}
       </div>
 
-      <div className="flex items-center gap-4 mt-4 text-xs text-gray-500">
-        <span className="flex items-center gap-1.5">
-          <span className="w-3 h-3 rounded bg-red-100 inline-block" /> Dolu
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="w-3 h-3 rounded bg-gray-50 border border-gray-200 inline-block" /> Boş
-        </span>
-      </div>
     </div>
   )
 }
