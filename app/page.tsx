@@ -88,7 +88,7 @@ export default async function HomePage() {
         </section>
 
         {/* İletişim Çağrı */}
-        <section className="bg-slate-900 border-y border-amber-400/10 py-14 px-4 text-center">
+        <section className="bg-slate-900 border-y border-amber-400/10 py-14 mt-12 px-4 text-center">
           <p className="text-amber-400 text-xs font-semibold tracking-[0.3em] uppercase mb-3">Rezervasyon</p>
           <h2 className="text-2xl font-bold text-white mb-2">Rezervasyon yapmak ister misiniz?</h2>
           <p className="text-slate-400 text-sm mb-8">Bizi arayın, uygun tarihleri birlikte belirleyelim.</p>
